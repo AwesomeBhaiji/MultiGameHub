@@ -1,0 +1,18 @@
+#click_container {
+    position: relative;
+    background-color: var(--dark);
+    box-shadow: var(--shadow);
+    border-radius: 20px;
+    width: 500px;
+    height: 300px;
+    padding: 20px;
+}
+
+
+.click_point {
+    position: absolute;
+    background-color: #00abff;
+    width: 5px;
+    aspect-ratio: 1;
+    border-radius: 999px;
+}

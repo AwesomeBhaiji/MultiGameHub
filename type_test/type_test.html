@@ -1,0 +1,40 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MultiGameHub | Type Test</title>
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="type_test.css">
+    </head>
+
+    <body>
+        <header>
+            <h1><a href="index.html">Type Test</a></h1>
+        </header>
+
+        <main>
+            <div class="main_section">
+                <h3 id="time_text"></h3>
+    
+                <div id="type_test_container">
+                    <div id="word_container">Word Box</div>
+                    <div id="input_container"></div>
+                </div>
+                <div id="keyboard"></div>
+                <div id="result_popup" class="popup"></div>
+            </div>
+            
+            <div id="side_section">
+                <label class="col_container">
+                    <p>Time Limit:</p>
+                    <input id="type_limit_input" type="number" min="1" value="10" max="120">
+                </label>
+
+                <button id="generate_word_list">Generate New Words</button>
+            </div>
+        </main>
+
+        <script src="../script.js"></script>
+        <script src="type_test.js" type="module"></script>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+#board {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    background-color: var(--dark);
+    box-shadow: var(--shadow);
+    border-radius: 20px;
+    width: fit-content;
+    gap: 20px;
+    padding: 20px;
+}
+.tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--darkest);
+    box-shadow: var(--inset-shadow);
+    width: 80px;
+    height: 80px;
+    border-radius: 999px;
+}
+
+.tile:hover {
+    background-color: var(--normal);
+}

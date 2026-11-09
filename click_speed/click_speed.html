@@ -1,0 +1,35 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MultiGameHub | Click Speed</title>
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="click_speed.css">
+    </head>
+
+    <body>
+        <header>
+            <h1><a href="index.html">Click Speed</a></h1>
+        </header>
+
+        <main>
+            <div class="main_section">
+                <h3 id="count_text"></h3>
+                <h3 id="time_text"></h3>
+    
+                <div id="click_container"></div>
+                <div id="result_popup" class="popup"></div>
+            </div>
+            
+            <div id="side_section">
+                <label class="col_container">
+                    <p>Time Limit:</p>
+                    <input id="type_limit_input" type="number" min="1" value="1" max="120">
+                </label>
+            </div>
+        </main>
+
+        <script src="../script.js"></script>
+        <script src="click_speed.js"></script>
+    </body>
+</html>

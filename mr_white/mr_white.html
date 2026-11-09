@@ -1,0 +1,61 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MultiGameHub | Mr. White</title>
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="mr_white.css">
+    </head>
+
+    <body>
+        <header>
+            <h1><a href="index.html">Mr. White</a></h1>
+        </header>
+
+        <main>
+            <div class="main_section">
+                <div id="player_cards_container"></div>
+
+                <input id="naming_input" type="text" placeholder="Player Name" class="popup">
+                <button id="confirm_vote" class="popup"></button>
+                <button id="review_word" class="popup"></button>
+                <div id="popup_text" class="popup"></div>                
+                
+                <button id="voting_toggle" style="display: none;">Vote Player</button>
+                
+                <button id="start">Start</button>
+                
+                <div id="win_popup" class="popup"></div>
+            </div>
+            
+            <div id="side_section">
+                <div class="card">
+                    <h3>Player Count:</h3>
+                    <label class="col_container">
+                        <p id="player_count_text">Player Count (4):</p>
+                        <input id="player_count" type="range" min="2" value="4" max="10">
+                    </label>
+                    <label class="col_container">
+                        <p id="undercover_count_text">Undercover Count (1):</p>
+                        <input id="undercover_count" type="range" min="0" value="1" max="10">
+                    </label>
+                    <label class="col_container">
+                        <p id="mr_white_count_text">Mr. White Count (0):</p>
+                        <input id="mr_white_count" type="range" min="0" value="0" max="10">
+                    </label>
+                </div>
+
+                <div class="card">
+                    <h3>Difficulty Options:</h3>
+                    <label class="row_container">
+                        <input id="show_category" type="checkbox">
+                        <p>Show Category</p>
+                    </label>
+                </div>
+            </div>
+        </main>
+
+        <script src="../script.js"></script>
+        <script src="mr_white.js"></script>
+    </body>
+</html>

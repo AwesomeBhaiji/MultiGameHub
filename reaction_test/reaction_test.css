@@ -1,0 +1,12 @@
+#click_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dark);
+    color: var(--text-muted);
+    box-shadow: var(--shadow);
+    border-radius: 20px;
+    width: 500px;
+    height: 300px;
+    padding: 20px;
+}

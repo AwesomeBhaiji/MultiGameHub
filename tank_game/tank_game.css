@@ -1,0 +1,24 @@
+#tank_map {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--dark);
+    box-shadow: var(--shadow);
+    width: 600px;
+    height: 400px;
+}
+.tank_body {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+}
+.tank_turret {
+    transform-origin: top;
+    position: absolute;
+    width: 5px;
+    height: 15px;
+}
+.tank_bullet {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+}
