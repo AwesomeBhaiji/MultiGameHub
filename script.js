@@ -41,5 +41,5 @@ games.forEach((game, index) => {
 });
 
 sidebar_toggle.addEventListener("click", () => {
-    side_section.style.display = (side_section.style.display == "none") ? "flex" : "none";
+    side_section.style.display = (side_section.style.display == "flex") ? "none" : "flex";
 });

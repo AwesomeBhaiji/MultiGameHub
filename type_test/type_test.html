@@ -18,7 +18,8 @@
     
                 <div id="type_test_container">
                     <div id="word_container">Word Box</div>
-                    <div id="input_container" contenteditable="true"></div>
+                    <div id="input_container"></div>
+                    <input id="virtual_input" type="text"></input>
                 </div>
                 <div id="keyboard"></div>
                 <div id="result_popup" class="popup"></div>
@@ -30,7 +31,20 @@
                     <input id="type_limit_input" type="number" min="1" value="10" max="120">
                 </label>
 
-                <button id="generate_word_list">Generate New Words</button>
+                <div class="card">
+                    <h3>Colors:</h3>
+                    <label class="col_container">
+                        <p>Right Color:</p>
+                        <input id="right_color_input" type="color" value="#008200">
+                    </label>
+
+                    <label class="col_container">
+                        <p>Error Color:</p>
+                        <input id="error_color_input" type="color" value="#820000">
+                    </label>
+                </div>
+
+                <button id="absolute_keyboard">Sticky Keyboard</button>
             </div>
         </main>
 

@@ -1,7 +1,23 @@
+const absolute_keyboard = document.getElementById("absolute_keyboard");
+absolute_keyboard.addEventListener("click", () => {
+    if (keyboard.style.position == "absolute") {
+        absolute_keyboard.innerText = "Sticky Keyboard";
+        keyboard.style.position = "static";
+        keyboard.style.transform = "translateX(0%)";
+    } else {
+        absolute_keyboard.innerText = "Non-Sticky Keyboard";
+        keyboard.style.position = "absolute";
+        keyboard.style.transform = "translateX(-50%)";
+    }
+});
+
+
+
 import word_bank from "../word_bank.json" with {type: "json"};
 const five_letter_words = word_bank.five_letter_words.split(", ");
 
 const board = document.getElementById("board");
+const virtual_input = document.getElementById("virtual_input");
 const keyboard = document.getElementById("keyboard");
 const result_popup = document.getElementById("result_popup");
 const give_up = document.getElementById("give_up");
@@ -15,8 +31,11 @@ let current_word;
 let current_letter;
 
 const letters = "Q,W,E,R,T,Y,U,I,O,P,\n,A,S,D,F,G,H,J,K,L,\n,Backspace,Z,X,C,V,B,N,M,Enter,\n".split(",");
-let keyboard_keys;
 
+const letter_rows = letters.join(",").split("\n").length - 1;
+keyboard.style.height = `${2*letter_rows}rem;`;
+
+let keyboard_keys;
 function Create_Keyboard() {
     keyboard.innerHTML = ""
     keyboard_keys = [];
@@ -30,7 +49,12 @@ function Create_Keyboard() {
         }
 
         const keyboard_key = document.createElement("button"); keyboard_key.className = "keyboard_key";
-        keyboard_key.innerText = letters[index];
+        
+        if (letters[index] == "Backspace") {
+            keyboard_key.innerText = "⌫";
+        } else if (letters[index] == "Enter") {
+            keyboard_key.innerText = "↵";
+        } else keyboard_key.innerText = letters[index];
         
         keyboard_key.addEventListener("click", () => {
             const key = letters[index];
@@ -140,8 +164,13 @@ function Check_Word() {
     else if (current_word == 6) Game_Over("Lost");
 }
 
-document.addEventListener("keydown", (event) => {
-    const pressed_key = keyboard_keys.find((keyboard_key) => keyboard_key.innerText.toLowerCase() == event.key.toLowerCase());
+virtual_input.addEventListener("keydown", (event) => {
+    const pressed_key = keyboard_keys.find((keyboard_key) => {
+        let key = keyboard_key.innerText.toLowerCase();
+        if (key == "⌫") key = "backspace";
+        else if (key == "↵") key = "enter";
+        return key == event.key.toLowerCase();
+    });
     if (!pressed_key) return;
 
     pressed_key.click();

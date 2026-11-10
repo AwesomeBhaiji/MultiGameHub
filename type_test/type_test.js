@@ -1,23 +1,51 @@
 import word_bank from "../word_bank.json" with {type: "json"};
 const common_words = word_bank.common_words.split(", ");
 
-const time_limit_input = document.getElementById("type_limit_input");
 
-time_limit_input.addEventListener("input", () => {
-    time_limit = time_limit_input.value;
+
+const absolute_keyboard = document.getElementById("absolute_keyboard");
+absolute_keyboard.addEventListener("click", () => {
+    if (keyboard.style.position == "absolute") {
+        absolute_keyboard.innerText = "Sticky Keyboard";
+        keyboard.style.position = "static";
+        keyboard.style.transform = "translateX(0%)";
+    } else {
+        absolute_keyboard.innerText = "Non-Sticky Keyboard";
+        keyboard.style.position = "absolute";
+        keyboard.style.transform = "translateX(-50%)";
+    }
 });
 
-let right_color = "#008223";
-let wrong_color = "#820023";
+const time_limit_input = document.getElementById("type_limit_input");
+time_limit_input.addEventListener("input", () => {
+    time_limit = time_limit_input.value;
+    Generate_Word_List();
+});
+
+const right_color_input = document.getElementById("right_color_input");
+const error_color_input = document.getElementById("error_color_input");
+
+let right_color;
+let error_color;
+
+function Hex_To_Rgb(color) {
+    color = color.replace('#', '');
+
+    const r = parseInt(color.substring(0, 2), 16);
+    const g = parseInt(color.substring(2, 4), 16);
+    const b = parseInt(color.substring(4, 6), 16);
+    
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
+
 
 const word_container = document.getElementById("word_container");
 const input_container = document.getElementById("input_container");
+const virtual_input = document.getElementById("virtual_input");
 const keyboard = document.getElementById("keyboard");
 const result_popup = document.getElementById("result_popup");
 const time_text = document.getElementById("time_text");
-const generate_word_list = document.getElementById("generate_word_list");
-
-
 
 let word_list;
 let time_limit;
@@ -26,6 +54,10 @@ let word_index
 let running;
 
 const letters = "q,w,e,r,t,y,u,i,o,p,\n,a,s,d,f,g,h,j,k,l,\n,Backspace,z,x,c,v,b,n,m,\n, ,\n".split(",");
+
+const letter_rows = letters.join(",").split("\n").length - 1;
+keyboard.style.height = `min(calc(${2*letter_rows}rem + ${10*letter_rows+1}px));`
+
 const keyboard_keys = [];
 let keyboard_row = document.createElement("div"); keyboard_row.className = "keyboard_row";
 for (const index in letters) {
@@ -36,7 +68,13 @@ for (const index in letters) {
     }
 
     const keyboard_key = document.createElement("button"); keyboard_key.className = "keyboard_key";
-    keyboard_key.innerText = letters[index];
+    
+    if (letters[index] == "Backspace") {
+        keyboard_key.innerText = "⌫";
+    } else if (letters[index] == " ") {
+        keyboard_key.innerText = " ";
+        keyboard_key.classList.add("long_key");
+    } else keyboard_key.innerText = letters[index];
 
     keyboard_key.addEventListener("click", () => {
         const key = letters[index];
@@ -87,6 +125,9 @@ function Generate_Word_List() {
 Generate_Word_List();
 
 function Initialize_Game() {
+    right_color = Hex_To_Rgb(right_color_input.value);
+    error_color = Hex_To_Rgb(error_color_input.value);
+
     time_limit = time_limit_input.value;
     current_time = 0;
     word_index = 0;
@@ -95,10 +136,13 @@ function Initialize_Game() {
     time_text.innerText = time_limit;
 }
 
-generate_word_list.addEventListener("click", Generate_Word_List)
+virtual_input.addEventListener("keydown", (event) => {
+    event.preventDefault();
 
-document.addEventListener("keydown", (event) => {
-    const pressed_key = keyboard_keys.find((keyboard_key) => (keyboard_key.innerText || " ") == event.key);
+    const pressed_key = keyboard_keys.find((keyboard_key) => {
+        let key = keyboard_key.innerText.toLowerCase();
+        if (key == "⌫") key = "backspace";
+        return (key || " ") == event.key.toLowerCase()});
     if (!pressed_key) return;
 
 
@@ -133,7 +177,7 @@ function New_Word_Input() {
             latest_word_element.innerText += " ".repeat(current_word.length - latest_word.length);
         }
 
-        latest_word_element.style.color = wrong_color;
+        latest_word_element.style.color = error_color;
     };
     word_index += 1;
     input_container.childNodes[word_index].innerText = " ";
