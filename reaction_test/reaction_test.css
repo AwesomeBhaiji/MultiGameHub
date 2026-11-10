@@ -6,7 +6,7 @@
     color: var(--text-muted);
     box-shadow: var(--shadow);
     border-radius: 20px;
-    width: 500px;
-    height: 300px;
+    width: clamp(200px, 50%, 600px);
+    aspect-ratio: 1.5;
     padding: 20px;
 }

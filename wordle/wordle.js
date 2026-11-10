@@ -18,7 +18,7 @@ const letters = "Q,W,E,R,T,Y,U,I,O,P,\n,A,S,D,F,G,H,J,K,L,\n,Backspace,Z,X,C,V,B
 let keyboard_keys;
 
 function Create_Keyboard() {
-    keyboard.innerHTML = "";
+    keyboard.innerHTML = ""
     keyboard_keys = [];
     let keyboard_row = document.createElement("div"); keyboard_row.className = "keyboard_row";
 
@@ -74,7 +74,6 @@ function Create_Keyboard() {
 function Initialize_Game() {
     Create_Keyboard();
 
-    board.innerHTML = "";
     word_to_guess = five_letter_words[Math.floor(Math.random() * (five_letter_words.length - 1))].toUpperCase();
     current_word = 0;
     current_letter = 0;
@@ -96,7 +95,7 @@ Initialize_Game();
 
 function Check_Word() {
     const last_guess_elements = board.childNodes[current_word-1].childNodes;
-    const last_guess_word = Array.from(last_guess_elements).map((letter) => letter.innerText).join("");
+    let last_guess_word = Array.from(last_guess_elements).map((letter) => letter.innerText).join("");
 
     let real_word = word_to_guess;
 
@@ -118,23 +117,26 @@ function Check_Word() {
             keyboard_element.style.backgroundColor = right_spot_color;
             
             real_word = real_word.slice(0,index) + "-" + real_word.slice(index+1);
+            last_guess_word = last_guess_word.slice(0,index) + "-" + last_guess_word.slice(index+1);
         }
     });
 
-    last_guess_elements.forEach((letter_element) => {
-        const guessed_letter = letter_element.innerText;
-        const keyboard_element = keyboard_keys.find((keyboard_key) => keyboard_key.innerText == guessed_letter);
+    Array.from(last_guess_word).forEach((letter, index) => {
+        if (letter == "-") return;
+
+        const keyboard_element = keyboard_keys.find((keyboard_key) => keyboard_key.innerText == letter);
         
-        if (real_word.includes(guessed_letter)) {    
-            letter_element.style.backgroundColor = right_letter_color;
+        if (real_word.includes(letter)) {    
+            last_guess_elements[index].style.backgroundColor = right_letter_color;
             keyboard_element.style.backgroundColor = right_letter_color;
 
-            let included_index = Array.from(real_word).findIndex((letter) => letter == guessed_letter);
+            let included_index = Array.from(real_word).findIndex((real_letter) => real_letter == letter);
             real_word = real_word.slice(0,included_index) + "-" + real_word.slice(included_index+1);
+            last_guess_word = last_guess_word.slice(0,included_index) + "-" + last_guess_word.slice(included_index+1);
         }
     });
 
-    if (last_guess_word == word_to_guess) Game_Over("Won");
+    if (last_guess_word == real_word) Game_Over("Won");
     else if (current_word == 6) Game_Over("Lost");
 }
 

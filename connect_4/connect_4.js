@@ -1,17 +1,38 @@
-const board = document.getElementById("board");
+const p1_color_input = document.getElementById("p1_color_input");
+const p2_color_input = document.getElementById("p2_color_input");
 
-let p1_color = "rgb(0, 82, 171)";
-let p2_color = "rgb(82, 0, 171)";
+let p1_color;
+let p2_color;
+
+function Hex_To_Rgb(color) {
+    color = color.replace('#', '');
+
+    const r = parseInt(color.substring(0, 2), 16);
+    const g = parseInt(color.substring(2, 4), 16);
+    const b = parseInt(color.substring(4, 6), 16);
+    
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
+
+
+const board = document.getElementById("board");
+const win_popup = document.getElementById("win_popup");
 
 let board_array;
 let last_tile;
 let player;
 
 function Initialize_Game() {
+    p1_color = Hex_To_Rgb(p1_color_input.value);
+    p2_color = Hex_To_Rgb(p2_color_input.value);
+
     board.innerHTML = "";
+    win_popup.style.display = "none";
     board.style.pointerEvents = "all";
 
     board_array = {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: []};
+    board.innerHTML += "<p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p>";
     for (let y=6; y>=1; y--) {
         for (let x=1; x<=7; x++) {
             
@@ -46,6 +67,14 @@ document.addEventListener("click", (event) => {
     else if (clicked_target.id == "restart") {
         Initialize_Game();
     }
+});
+
+document.addEventListener("keydown", (event) => {
+    const column_number = parseInt(event.key);
+    if (!column_number || board.style.pointerEvents == "none") return;
+    if (column_number > 7 || column_number < 1) return;
+
+    board.childNodes[column_number+6].click();
 });
 
 function Check_Wins(color) {
@@ -95,10 +124,16 @@ function Game_Won(color) {
     board.style.pointerEvents = "none";
     win_popup.style.display = "flex";
 
+    const winner = (color == p1_color) ? "Player 1" : "Player 2";   
+
     win_popup.innerHTML = `
-        <h3> ${color} won!</h3>
-        <button id="close_popup">Close</button>
+        <h3> ${winner} won!</h3>
+        <div class="row_container">
+            <button id="restart">Restart</button>
+            <button id="close">Close</button>
+        </div>
     `;
 
-    document.getElementById("close_popup").addEventListener("click", () => win_popup.style.display = "none");
+    document.getElementById("restart").addEventListener("click", Initialize_Game);
+    document.getElementById("close").addEventListener("click", () => win_popup.style.display = "none");
 }

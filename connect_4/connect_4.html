@@ -9,7 +9,7 @@
 
     <body>
         <header>
-            <h1><a href="index.html">Connect 4</a></h1>
+            <h1><a href="../index.html">Connect 4</a></h1>
         </header>
 
         <main>
@@ -19,7 +19,20 @@
                 <button id="restart">Restart</button>
             </div>
 
-            <div id="side_section"></div>
+            <div id="side_section">
+                <div class="card">
+                    <h3>Colors:</h3>
+                    <label class="col_container">
+                        <p>Player 1's Color:</p>
+                        <input id="p1_color_input" type="color">
+                    </label>
+
+                    <label class="col_container">
+                        <p>Player 2's Color:</p>
+                        <input id="p2_color_input" type="color">
+                    </label>
+                </div>
+            </div>
         </main>
     
         <script src="../script.js"></script>

@@ -1,4 +1,5 @@
 const header = document.getElementsByTagName("header")[0];
+const side_section = document.getElementById("side_section");
 
 const row_container = document.createElement("div"); row_container.className = "row_container";
 const games_dropdown = document.createElement("div"); games_dropdown.className = "dropdown_container"; games_dropdown.id = "games_dropdown";
@@ -6,7 +7,8 @@ const dropdown_button = document.createElement("button"); dropdown_button.classN
 const options_container = document.createElement("div"); options_container.className = "options_container";
 const sidebar_toggle = document.createElement("button"); sidebar_toggle.innerText = "Toggle Sidebar";
 
-row_container.appendChild(games_dropdown); row_container.appendChild(sidebar_toggle);
+row_container.appendChild(games_dropdown); 
+if (side_section) row_container.appendChild(sidebar_toggle);
 games_dropdown.appendChild(dropdown_button); games_dropdown.appendChild(options_container);
 header.appendChild(row_container);
 
@@ -31,7 +33,10 @@ games.forEach((game, index) => {
     if (current_game == game) {
         option_element.classList.add("selected");
         dropdown_button.innerText = current_game.split("_").join(" ");
-    };
+    }
+
+    if (!dropdown_button.innerText) dropdown_button.innerText = "Games";
+
     options_container.appendChild(option_element);
 });
 

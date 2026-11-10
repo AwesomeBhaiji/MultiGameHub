@@ -21,16 +21,17 @@ function Initialize_Game() {
     current_time = 0;
     click_count = 0;
 
-    click_container.innerHTML = "";
+    click_container.innerHTML = "Click To Start";
     side_section.style.pointerEvents = "none";
     result_popup.style.display = "none";
     time_text.innerText = time_limit;
     count_text.innerText = click_count;
 }
+Initialize_Game();
 
 click_container.addEventListener("mousedown", (event) => {
     if (!running) {
-        Initialize_Game();
+        click_container.innerHTML = "";
         running = true;
         Loop();
     };
@@ -43,7 +44,7 @@ click_container.addEventListener("mousedown", (event) => {
 });
 
 async function Loop() {
-    time_text.innerText = time_limit - current_time;
+    time_text.innerText = (time_limit - current_time).toFixed(2);
 
     if (current_time == time_limit) {
         Result();
@@ -51,9 +52,10 @@ async function Loop() {
     }
 
     setTimeout(() => {
-        current_time += 1;
+        current_time += 0.01;
+        current_time = Math.round(current_time * 100) / 100;
         Loop();
-    }, 1000);
+    }, 10);
 }
 
 function Result() {
@@ -70,7 +72,7 @@ function Result() {
 
     setTimeout(() => {
         document.getElementById("close_popup").addEventListener("click", () => {
-            result_popup.style.display = "none";
+            Initialize_Game();
             running = false;
         });
     }, 500);

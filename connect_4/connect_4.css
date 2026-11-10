@@ -4,18 +4,20 @@
     background-color: var(--dark);
     box-shadow: var(--shadow);
     border-radius: 20px;
-    width: fit-content;
-    gap: 20px;
+    width: clamp(300px, 75%, 600px);
+    gap: 15px 10px;
     padding: 20px;
+    text-align: center;
 }
+
 .tile {
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--darkest);
     box-shadow: var(--inset-shadow);
-    width: 80px;
-    height: 80px;
+    width: 100%;
+    aspect-ratio: 1;
     border-radius: 999px;
 }
 
